@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TMonomial.cpp" />
+    <ClCompile Include="TPolynomial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TMonomial.h" />
+    <ClInclude Include="TPolynomial.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
