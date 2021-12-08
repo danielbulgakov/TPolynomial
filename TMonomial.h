@@ -6,16 +6,21 @@ class TMonomial
 {
 private:
 
-	int Mult = 0;
+	double Mult = 0;
 	std::vector<std::pair<std::string, int>> Values;
 	TMonomial* Next;
 
 public:
 	
-	TMonomial(int mult, std::vector<std::pair<std::string, int>> values);
+	TMonomial(double mult, std::vector<std::pair<std::string, int>> values);
+
+	
+	TMonomial& operator*=(double a);
+	TMonomial& operator/=(double a);
+
 	void SetNext(TMonomial* next);
 	TMonomial* GetNext();
-	int GetMult();
+	double GetMult();
 	auto GetValues();
 	void Print();
 	friend std::ostream& operator<<(std::ostream& out, const TMonomial& ts);

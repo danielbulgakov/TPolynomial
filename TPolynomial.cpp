@@ -4,8 +4,8 @@ TMonomial& TPolynomial::GetElement(size_t index)
 {
 	TMonomial* tmp = Head;
 	if (index == 0) return *Head;
-	for (size_t i = 0; i < Size; i++) {
-		tmp = Head->GetNext();
+	for (size_t i = 0; i < index; i++) {
+		tmp = tmp->GetNext();
 	}
 	return *tmp;
 }
@@ -27,7 +27,26 @@ TMonomial& TPolynomial::operator[](size_t index)
 	return (const_cast<TMonomial&>(GetElement(index)));
 }
 
-void TPolynomial::Push_front(int mult, std::vector<std::pair<std::string, int>> values)
+
+
+TPolynomial& TPolynomial::operator*=(const double a)
+{
+	for (size_t i = 0; i < Size; i++) {
+		GetElement(i) *= a;
+	}
+	return *this;
+}
+
+
+TPolynomial& TPolynomial::operator/=(const double a)
+{
+	for (size_t i = 0; i < Size; i++) {
+		GetElement(i) /= a;
+	}
+	return *this;
+}
+
+void TPolynomial::Push_front(double mult, std::vector<std::pair<std::string, int>> values)
 {
 	TMonomial* nMonom = new TMonomial(mult, values);
 	nMonom->SetNext(Head);
@@ -35,7 +54,7 @@ void TPolynomial::Push_front(int mult, std::vector<std::pair<std::string, int>> 
 	this->Size++;
 }
 
-void TPolynomial::Push_back(int mult, std::vector<std::pair<std::string, int>> values) {
+void TPolynomial::Push_back(double  mult, std::vector<std::pair<std::string, int>> values) {
 	TMonomial* nMonom = new TMonomial(mult, values);
 	if (this->Head == nullptr) {
 		Head = nMonom;

@@ -1,9 +1,22 @@
 #include "TMonomial.h"
 
-TMonomial::TMonomial(int mult, std::vector<std::pair<std::string, int>> values)
+TMonomial::TMonomial(double mult, std::vector<std::pair<std::string, int>> values)
 {
 	this->Mult = mult;
 	this->Values = values;
+}
+
+
+TMonomial& TMonomial::operator*=(double a)
+{
+	this->Mult *= a;
+	return *this;
+}
+
+TMonomial& TMonomial::operator/=(double a)
+{
+	this->Mult /= a;
+	return *this;
 }
 
 void TMonomial::SetNext(TMonomial* next)
@@ -16,7 +29,7 @@ TMonomial* TMonomial::GetNext()
 	return Next;
 }
 
-int TMonomial::GetMult()
+double TMonomial::GetMult()
 {
 	return this->Mult;
 }

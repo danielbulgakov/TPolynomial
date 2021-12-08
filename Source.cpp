@@ -11,16 +11,14 @@ int main() {
 	
 	TPolynomial Polynom;
 
-	Polynom.Push_back(mult, Values);
-	Polynom.Push_back(mult, Values);
-	Polynom.Push_back(mult, Values);
-	Polynom.Push_back(mult, Values);
-	Polynom.Push_back(mult, Values);
-	Polynom.Push_back(mult, Values);
-	Polynom.Push_back(mult, Values);
-	Polynom.Push_front(-1, Values1);
+	Polynom.Push_back(6, Values);
+	Polynom.Push_back(-9, Values);
+	Polynom.Push_back(18, Values);
 
-	std::cout << Polynom[0];
+	Polynom /= 3;
+	Polynom *= -3;
+
+	Polynom.Print();
 
 	//Polynom.Print();
 

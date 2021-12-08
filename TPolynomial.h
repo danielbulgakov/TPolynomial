@@ -13,9 +13,14 @@ public:
 
 	TMonomial& operator[](size_t index);
 
+	
+	TPolynomial& operator*=(const double a);
+
+	TPolynomial& operator/=(const double a);
+
 	size_t GetSize();
-	void Push_front(int mult, std::vector<std::pair<std::string, int>> values);
-	void Push_back(int mult, std::vector<std::pair<std::string, int>> values);
+	void Push_front(double mult, std::vector<std::pair<std::string, int>> values);
+	void Push_back(double mult, std::vector<std::pair<std::string, int>> values);
 	void Print();
 };
 
