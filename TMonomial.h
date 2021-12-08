@@ -10,6 +10,9 @@ private:
 	std::vector<std::pair<std::string, int>> Values;
 	TMonomial* Next;
 
+	std::pair<std::string, int> GetPair(std::string value);
+	TMonomial(const TMonomial& tmnl);
+
 public:
 	
 	TMonomial(double mult, std::vector<std::pair<std::string, int>> values);
@@ -17,6 +20,17 @@ public:
 	
 	TMonomial& operator*=(double a);
 	TMonomial& operator/=(double a);
+
+	TMonomial& operator*=(std::string name);
+	TMonomial& operator/=(std::string name);
+
+	TMonomial operator*(double a);
+	TMonomial operator/(double a);
+
+	TMonomial operator*(std::string name);
+	TMonomial operator/(std::string name);
+	
+
 
 	void SetNext(TMonomial* next);
 	TMonomial* GetNext();

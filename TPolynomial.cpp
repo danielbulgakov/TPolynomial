@@ -10,6 +10,11 @@ TMonomial& TPolynomial::GetElement(size_t index)
 	return *tmp;
 }
 
+TPolynomial::TPolynomial(const TPolynomial& tpl)
+{
+	this->Head = tpl.Head;
+	this->Size = tpl.Size;
+}
 
 TPolynomial::TPolynomial()
 {
@@ -44,6 +49,54 @@ TPolynomial& TPolynomial::operator/=(const double a)
 		GetElement(i) /= a;
 	}
 	return *this;
+}
+
+TPolynomial& TPolynomial::operator*=(std::string name) {
+	for (size_t i = 0; i < Size; i++) {
+		GetElement(i) *= name;
+	}
+	return *this;
+}
+
+TPolynomial& TPolynomial::operator/=(std::string name) {
+	for (size_t i = 0; i < Size; i++) {
+		GetElement(i) /= name;
+	}
+	return *this;
+}
+
+TPolynomial TPolynomial::operator*(const double a)
+{
+	TPolynomial tmp(*this);
+	for (size_t i = 0; i < tmp.Size; i++) {
+		tmp.GetElement(i) *= a;
+	}
+	return tmp;
+}
+
+TPolynomial TPolynomial::operator/(const double a)
+{
+	TPolynomial tmp(*this);
+	for (size_t i = 0; i < tmp.Size; i++) {
+		tmp.GetElement(i) /= a;
+	}
+	return tmp;
+}
+
+TPolynomial TPolynomial::operator*(std::string name) {
+	TPolynomial tmp(*this);
+	for (size_t i = 0; i < tmp.Size; i++) {
+		tmp.GetElement(i) *= name;
+	}
+	return tmp;
+}
+
+TPolynomial TPolynomial::operator/(std::string name) {
+	TPolynomial tmp(*this);
+	for (size_t i = 0; i < tmp.Size; i++) {
+		tmp.GetElement(i) /= name;
+	}
+	return tmp;
 }
 
 void TPolynomial::Push_front(double mult, std::vector<std::pair<std::string, int>> values)
