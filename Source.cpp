@@ -13,16 +13,20 @@ int main() {
 	
 	TPolynomial Polynom;
 
-	Polynom.Push_back(1, Values);
+	Polynom.Push_back(5, Values);
 	Polynom.Push_back(1, Values1);
 	Polynom.Push_back(1, Values2);
+
+
+	Polynom /= "a^2";
+	Polynom *= "b^-3";
 
 	//Polynom /= 3;
 	//Polynom *= -3;
 
-	Polynom /= 5;
-	Polynom = Polynom * 5;
-	Polynom /= "g^2";
+	//Polynom /= 5;
+	//Polynom = Polynom * 5;
+	//Polynom /= "g^2";
 
 	Polynom.Print();
 
