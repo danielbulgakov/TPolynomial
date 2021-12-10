@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <map>
+#include <cmath>
 class TMonomial
 {
 private:
@@ -16,6 +18,7 @@ private:
 public:
 	
 	TMonomial(double mult, std::vector<std::pair<std::string, int>> values);
+	
 
 	
 	TMonomial& operator*=(double a);
@@ -31,7 +34,7 @@ public:
 	TMonomial operator/(std::string name);
 	
 
-
+	double Evaluate(const std::map<std::string, double>& KeyMap);
 	void SetNext(TMonomial* next);
 	TMonomial* GetNext();
 	double GetMult();

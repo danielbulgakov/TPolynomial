@@ -18,17 +18,17 @@ public:
 	TPolynomial& operator*=(const double a);
 	TPolynomial& operator/=(const double a);
 
-	TPolynomial& operator*=(std::string name);
-	TPolynomial& operator/=(std::string name);
+	TPolynomial& operator*=(const std::string name);
+	TPolynomial& operator/=(const std::string name);
 
 	TPolynomial operator*(const double a);
 	TPolynomial operator/(const double a);
 
-	TPolynomial operator*(std::string name);
-	TPolynomial operator/(std::string name);
+	TPolynomial operator*(const std::string name);
+	TPolynomial operator/(const std::string name);
 
 
-
+	double Evaluate(const std::map<std::string, double> &KeyMap);
 	size_t GetSize();
 	void Push_front(double mult, std::vector<std::pair<std::string, int>> values);
 	void Push_back(double mult, std::vector<std::pair<std::string, int>> values);

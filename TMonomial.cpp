@@ -130,6 +130,20 @@ TMonomial TMonomial::operator/(std::string name) {
 
 }
 
+double TMonomial::Evaluate(const std::map<std::string, double>& KeyMap)
+{
+	double Answer = this->Mult;
+
+	for (const auto& value : Values) {
+		if (KeyMap.find(value.first) == KeyMap.end()) throw  std::invalid_argument("Value not found");
+		else {
+			Answer *= pow(KeyMap.find(value.first)->second, value.second);
+		}
+	}
+
+	return Answer;
+}
+
 void TMonomial::SetNext(TMonomial* next)
 {
 	this->Next = next;
@@ -166,7 +180,7 @@ std::ostream& operator<<(std::ostream& out, const TMonomial& ts)
 	}
 	if (ts.Mult != 1 || ts.Values.size() == 0) {
 		std::cout << (ts.Mult < 0 ? "(" : std::string()) << ts.Mult
-			<< (ts.Mult < 0 ? ")" : std::string()) ;
+			<< (ts.Mult < 0 ? ")" : std::string()) << " * ";
 	}
 	for (auto elem : ts.Values) {
 		if ( elem != ts.Values[0])

@@ -22,6 +22,16 @@ TPolynomial::TPolynomial()
 	this->Size = 0;
 }
 
+double TPolynomial::Evaluate(const std::map<std::string, double>& KeyMap)
+{
+	double Answer = 0;
+
+	for (size_t i = 0; i < Size; i++){
+		Answer += GetElement(i).Evaluate(KeyMap);
+	}
+	return Answer;
+}
+
 size_t TPolynomial::GetSize()
 {
 	return Size;
@@ -51,14 +61,14 @@ TPolynomial& TPolynomial::operator/=(const double a)
 	return *this;
 }
 
-TPolynomial& TPolynomial::operator*=(std::string name) {
+TPolynomial& TPolynomial::operator*=(const std::string name) {
 	for (size_t i = 0; i < Size; i++) {
 		GetElement(i) *= name;
 	}
 	return *this;
 }
 
-TPolynomial& TPolynomial::operator/=(std::string name) {
+TPolynomial& TPolynomial::operator/=(const std::string name) {
 	for (size_t i = 0; i < Size; i++) {
 		GetElement(i) /= name;
 	}
@@ -83,7 +93,7 @@ TPolynomial TPolynomial::operator/(const double a)
 	return tmp;
 }
 
-TPolynomial TPolynomial::operator*(std::string name) {
+TPolynomial TPolynomial::operator*(const std::string name) {
 	TPolynomial tmp(*this);
 	for (size_t i = 0; i < tmp.Size; i++) {
 		tmp.GetElement(i) *= name;
@@ -91,7 +101,7 @@ TPolynomial TPolynomial::operator*(std::string name) {
 	return tmp;
 }
 
-TPolynomial TPolynomial::operator/(std::string name) {
+TPolynomial TPolynomial::operator/(const std::string name) {
 	TPolynomial tmp(*this);
 	for (size_t i = 0; i < tmp.Size; i++) {
 		tmp.GetElement(i) /= name;
