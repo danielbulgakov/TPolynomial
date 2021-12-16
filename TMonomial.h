@@ -18,8 +18,11 @@ private:
 public:
 	
 	TMonomial(double mult, std::vector<std::pair<std::string, int>> values);
+	void SetNext(TMonomial* next);
 	
-
+	TMonomial* GetNext();
+	double GetMult();
+	auto GetValues();
 	
 	TMonomial& operator*=(double a);
 	TMonomial& operator/=(double a);
@@ -33,12 +36,9 @@ public:
 	TMonomial operator*(std::string name);
 	TMonomial operator/(std::string name);
 	
-
 	double Evaluate(const std::map<std::string, double>& KeyMap);
-	void SetNext(TMonomial* next);
-	TMonomial* GetNext();
-	double GetMult();
-	auto GetValues();
+	TMonomial Pow(uint32_t Power);
+	
 	void Print();
 	friend std::ostream& operator<<(std::ostream& out, const TMonomial& ts);
 

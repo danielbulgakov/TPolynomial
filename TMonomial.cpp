@@ -144,6 +144,16 @@ double TMonomial::Evaluate(const std::map<std::string, double>& KeyMap)
 	return Answer;
 }
 
+TMonomial TMonomial::Pow(uint32_t Power)
+{
+	TMonomial tmp(*this);
+	tmp.Mult = pow(tmp.Mult, Power);
+	for (auto& el : tmp.Values) {
+		el.second = pow(el.second, Power);
+	}
+	return tmp;
+}
+
 void TMonomial::SetNext(TMonomial* next)
 {
 	this->Next = next;

@@ -32,6 +32,20 @@ double TPolynomial::Evaluate(const std::map<std::string, double>& KeyMap)
 	return Answer;
 }
 
+TPolynomial TPolynomial::Pow(uint32_t Power)
+{
+	if (Power > 20) throw std::runtime_error("Power is too big");
+	TPolynomial tmp(*this);
+
+	return tmp;
+}
+
+std::vector<uint32_t> TPolynomial::PascalTriangle(size_t row)
+{
+	std::vector<uint32_t> tmp;
+	return std::vector<uint32_t>();
+}
+
 size_t TPolynomial::GetSize()
 {
 	return Size;
