@@ -22,6 +22,18 @@ TPolynomial::TPolynomial()
 	this->Size = 0;
 }
 
+TPolynomial::~TPolynomial()
+{
+	TMonomial* Next = nullptr;
+
+	while (Head != nullptr) {
+		Next = Head->GetNext();
+		delete Head;
+		Head = Next;
+	} 
+
+}
+
 double TPolynomial::Evaluate(const std::map<std::string, double>& KeyMap)
 {
 	double Answer = 0;
@@ -123,6 +135,11 @@ TPolynomial TPolynomial::operator/(const std::string name) {
 	return tmp;
 }
 
+void TPolynomial::Add(double mult, std::vector<std::pair<std::string, int>> values)
+{
+	Push_back(mult, values);
+}
+
 void TPolynomial::Push_front(double mult, std::vector<std::pair<std::string, int>> values)
 {
 	TMonomial* nMonom = new TMonomial(mult, values);
@@ -136,10 +153,21 @@ void TPolynomial::Push_back(double  mult, std::vector<std::pair<std::string, int
 	if (this->Head == nullptr) {
 		Head = nMonom;
 	}
+
 	else {
 		TMonomial* tmp = Head;
+		if (this->Size == 1) {
+			if (tmp->isEqual(*nMonom)) {
+				tmp->SetMult(tmp->GetMult() + (*nMonom).GetMult());
+				return;
+			}
+		}
 		while (tmp->GetNext() != nullptr) {
 			tmp = tmp->GetNext();
+			if (tmp->isEqual(*nMonom)) {
+				tmp->SetMult(tmp->GetMult() + (*nMonom).GetMult());
+				return;
+			}
 		}
 		tmp->SetNext(nMonom);
 	}

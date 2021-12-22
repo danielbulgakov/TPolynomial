@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <cmath>
+#include <algorithm>
 class TMonomial
 {
 private:
@@ -19,10 +20,11 @@ public:
 	
 	TMonomial(double mult, std::vector<std::pair<std::string, int>> values);
 	void SetNext(TMonomial* next);
+	void SetMult(int value);
 	
 	TMonomial* GetNext();
 	double GetMult();
-	auto GetValues();
+	std::vector<std::pair<std::string, int>> GetValues();
 	
 	TMonomial& operator*=(double a);
 	TMonomial& operator/=(double a);
@@ -38,6 +40,8 @@ public:
 	
 	double Evaluate(const std::map<std::string, double>& KeyMap);
 	TMonomial Pow(uint32_t Power);
+	bool isEqual(TMonomial& monom);
+	void SortValues();
 	
 	void Print();
 	friend std::ostream& operator<<(std::ostream& out, const TMonomial& ts);

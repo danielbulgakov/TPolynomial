@@ -14,6 +14,8 @@ TMonomial::TMonomial(double mult, std::vector<std::pair<std::string, int>> value
 {
 	this->Mult = mult;
 	this->Values = values;
+
+	
 }
 
 TMonomial::TMonomial(const TMonomial& tmnl)
@@ -21,18 +23,21 @@ TMonomial::TMonomial(const TMonomial& tmnl)
 	this->Mult = tmnl.Mult;
 	this->Values = tmnl.Values;
 	this->Next = tmnl.Next;
+
 }
 
 
 TMonomial& TMonomial::operator*=(double a)
 {
 	this->Mult *= a;
+
 	return *this;
 }
 
 TMonomial& TMonomial::operator/=(double a)
 {
 	this->Mult /= a;
+
 	return *this;
 }
 
@@ -51,6 +56,7 @@ TMonomial& TMonomial::operator*=(std::string name) {
 		}
 	}
 	Values.push_back(pair);
+
 	return *this;
 
 }
@@ -72,6 +78,7 @@ TMonomial& TMonomial::operator/=(std::string name) {
 
 	}
 	Values.push_back(std::make_pair(pair.first, pair.second * (-1)));
+
 	return *this;
 
 }
@@ -80,6 +87,7 @@ TMonomial TMonomial::operator*(double a)
 {
 	TMonomial tmp(*this);
 	tmp.Mult *= a;
+
 	return tmp;
 }
 
@@ -87,6 +95,7 @@ TMonomial TMonomial::operator/(double a)
 {
 	TMonomial tmp(*this);
 	tmp.Mult /= a;
+
 	return tmp;
 }
 
@@ -106,6 +115,7 @@ TMonomial TMonomial::operator*(std::string name) {
 		}
 	}
 	tmp.Values.push_back(pair);
+
 	return tmp;
 
 }
@@ -126,6 +136,7 @@ TMonomial TMonomial::operator/(std::string name) {
 		}
 	}
 	tmp.Values.push_back(pair);
+
 	return tmp;
 
 }
@@ -154,9 +165,35 @@ TMonomial TMonomial::Pow(uint32_t Power)
 	return tmp;
 }
 
+bool TMonomial::isEqual(TMonomial& monom)
+{
+	std::vector<std::pair<std::string, int>> Tmp = this->Values;
+	std::vector<std::pair<std::string, int>> Tmp1 = monom.GetValues();
+	std::sort(Tmp.begin(), Tmp.end());
+	std::sort(Tmp1.begin(), Tmp1.end());
+
+	if (Tmp == Tmp1) {
+		this->Values = Tmp;
+		return true;
+	}
+	return false;
+
+
+}
+
+void TMonomial::SortValues()
+{
+	std::sort(Values.begin(), Values.end());
+}
+
 void TMonomial::SetNext(TMonomial* next)
 {
 	this->Next = next;
+}
+
+void TMonomial::SetMult(int value)
+{
+	this->Mult = value;
 }
 
 TMonomial* TMonomial::GetNext()
@@ -169,7 +206,7 @@ double TMonomial::GetMult()
 	return this->Mult;
 }
 
-auto TMonomial::GetValues()
+std::vector<std::pair<std::string, int>> TMonomial::GetValues()
 {
 	return this->Values;
 }

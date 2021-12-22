@@ -1,10 +1,2 @@
 ﻿  Source.cpp
-  TMonomial.cpp
-D:\Study\C(C++)\University\TPolynomial\TMonomial.cpp(152,18): warning C4244: '=': conversion from 'double' to '_Ty2', possible loss of data
-          with
-          [
-              _Ty2=int
-          ]
-  TPolynomial.cpp
-  Generating Code...
   TPolynomial.vcxproj -> D:\Study\C(C++)\University\TPolynomial\x64\Debug\TPolynomial.exe
