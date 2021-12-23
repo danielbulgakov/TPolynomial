@@ -175,18 +175,7 @@ TPolynomial& TPolynomial::operator*=(const TPolynomial& polynom)
 	return (*this);
 }
 
-TPolynomial& TPolynomial::operator/=( const TPolynomial& polynom)
-{
-	TPolynomial tmp;
-	for (size_t i = 0; i < this->Size; i++) {
-		for (size_t j = 0; j < polynom.Size; j++) {
-			TMonomial m(this->GetElement(i) / polynom.GetElement(j));
-			tmp.Add(m.GetMult(), m.GetValues());
-		}
-	}
-	*this = tmp;
-	return (*this);
-}
+
 
 TPolynomial TPolynomial::operator*( const TPolynomial& polynom)
 {
@@ -201,18 +190,7 @@ TPolynomial TPolynomial::operator*( const TPolynomial& polynom)
 	return tmp;
 }
 
-TPolynomial TPolynomial::operator/(const TPolynomial& polynom)
-{
-	TPolynomial tmp;
-	for (size_t i = 0; i < this->Size; i++) {
-		for (size_t j = 0; j < polynom.Size; j++) {
-			TMonomial m(this->GetElement(i) / polynom.GetElement(j));
-			tmp.Add(m.GetMult(), m.GetValues());
-		}
-	}
 
-	return tmp;
-}
 
 void TPolynomial::Add(double mult, std::vector<std::pair<std::string, int>> values)
 {

@@ -26,7 +26,7 @@ int main() {
 
 
 
-	Polynom = Polynom1 / Polynom1;
+	
 
 	//Polynom.Add(1,Values);
 

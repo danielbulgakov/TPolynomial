@@ -43,10 +43,10 @@ public:
 	TPolynomial operator/(const std::string name);
 
 	TPolynomial operator*(const TPolynomial& polynom);
-	TPolynomial operator/(const TPolynomial& polynom);
+
 
 	TPolynomial& operator*=(const TPolynomial& polynom);
-	TPolynomial& operator/=(const TPolynomial& polynom);
+
 
 
 	void Add(double mult, std::vector<std::pair<std::string, int>> values);
