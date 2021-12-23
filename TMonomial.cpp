@@ -27,21 +27,21 @@ TMonomial::TMonomial(const TMonomial& tmnl)
 }
 
 
-TMonomial& TMonomial::operator*=(double a)
+TMonomial& TMonomial::operator*=(const double a)
 {
 	this->Mult *= a;
 
 	return *this;
 }
 
-TMonomial& TMonomial::operator/=(double a)
+TMonomial& TMonomial::operator/=(const double a)
 {
 	this->Mult /= a;
 
 	return *this;
 }
 
-TMonomial& TMonomial::operator*=(std::string name) {
+TMonomial& TMonomial::operator*=(const std::string name) {
 	std::pair<std::string, int> pair = GetPair(name);
 	for (auto& el : Values) {
 		if (pair.first == el.first) {
@@ -61,7 +61,7 @@ TMonomial& TMonomial::operator*=(std::string name) {
 
 }
 
-TMonomial& TMonomial::operator/=(std::string name) {
+TMonomial& TMonomial::operator/=(const std::string name) {
 	std::pair<std::string, int> pair = GetPair(name);
 	for (auto& el : Values) {
 		if (pair.first == el.first) {
@@ -83,7 +83,7 @@ TMonomial& TMonomial::operator/=(std::string name) {
 
 }
 
-TMonomial TMonomial::operator*(double a)
+TMonomial TMonomial::operator*(const double a)
 {
 	TMonomial tmp(*this);
 	tmp.Mult *= a;
@@ -91,7 +91,7 @@ TMonomial TMonomial::operator*(double a)
 	return tmp;
 }
 
-TMonomial TMonomial::operator/(double a)
+TMonomial TMonomial::operator/(const double a)
 {
 	TMonomial tmp(*this);
 	tmp.Mult /= a;
@@ -99,7 +99,7 @@ TMonomial TMonomial::operator/(double a)
 	return tmp;
 }
 
-TMonomial TMonomial::operator*(std::string name) {
+TMonomial TMonomial::operator*(const std::string name) {
 	TMonomial tmp(*this);
 	std::pair<std::string, int> pair = GetPair(name);
 	for (auto& el : tmp.Values) {
@@ -120,7 +120,7 @@ TMonomial TMonomial::operator*(std::string name) {
 
 }
 
-TMonomial TMonomial::operator/(std::string name) {
+TMonomial TMonomial::operator/(const std::string name) {
 	TMonomial tmp(*this);
 	std::pair<std::string, int> pair = GetPair(name);
 	for (auto& el : tmp.Values) {
@@ -191,24 +191,82 @@ void TMonomial::SetNext(TMonomial* next)
 	this->Next = next;
 }
 
-void TMonomial::SetMult(int value)
+void TMonomial::SetMult(double value)
 {
 	this->Mult = value;
 }
 
-TMonomial* TMonomial::GetNext()
+TMonomial* TMonomial::GetNext() const
 {
 	return Next;
 }
 
-double TMonomial::GetMult()
+double TMonomial::GetMult() const
 {
 	return this->Mult;
 }
 
-std::vector<std::pair<std::string, int>> TMonomial::GetValues()
+std::vector<std::pair<std::string, int>> TMonomial::GetValues() const
 {
 	return this->Values;
+}
+
+TMonomial& TMonomial::operator=(const TMonomial& monom)
+{
+	this->Mult = monom.Mult;
+	this->Values = monom.Values;
+	this->Next = monom.Next;
+	return *this;
+}
+
+TMonomial TMonomial::operator*(const TMonomial& monom)
+{
+	TMonomial tmp(*this);
+	tmp.Mult *= monom.GetMult();
+	for (auto el : monom.GetValues()) {
+		bool Contains = false;
+		std::pair<std::string, int> pair = el;
+		for (auto& el : tmp.Values) {
+			if (pair.first == el.first) {
+				el.second += pair.second;
+				Contains = true;
+				if (el.second == 0) {
+					auto it = std::find(tmp.Values.begin(), tmp.Values.end(), el);
+					tmp.Values.erase(tmp.Values.begin() + distance(tmp.Values.begin(), it));
+				}
+
+				break;
+			}
+		}
+		if (!Contains)
+			tmp.Values.push_back(pair);
+	}
+	return tmp;
+}
+
+TMonomial TMonomial::operator/(const TMonomial& monom)
+{
+	TMonomial tmp(*this);
+	tmp.Mult *= monom.GetMult();
+	for (auto el : monom.GetValues()) {
+		bool Contains = false;
+		std::pair<std::string, int> pair = el;
+		for (auto& el : tmp.Values) {
+			if (pair.first == el.first) {
+				el.second -= pair.second;
+				Contains = true;
+				if (el.second == 0) {
+					auto it = std::find(tmp.Values.begin(), tmp.Values.end(), el);
+					tmp.Values.erase(tmp.Values.begin() + distance(tmp.Values.begin(), it));
+				}
+
+				break;
+			}
+		}
+		if (!Contains)
+			tmp.Values.push_back(pair);
+	}
+	return tmp;
 }
 
 void TMonomial::Print()
@@ -225,13 +283,17 @@ std::ostream& operator<<(std::ostream& out, const TMonomial& ts)
 		std::cout << "0";
 		return out;
 	}
-	if (ts.Mult != 1 || ts.Values.size() == 0) {
+	if (ts.Mult != 1) {
 		std::cout << (ts.Mult < 0 ? "(" : std::string()) << ts.Mult
-			<< (ts.Mult < 0 ? ")" : std::string()) << " * ";
+			<< (ts.Mult < 0 ? ")" : std::string()) << "*";
+	}
+	if (ts.Values.size() == 0) {
+		std::cout << (ts.Mult < 0 ? "(" : std::string()) << ts.Mult
+			<< (ts.Mult < 0 ? ")" : std::string());
 	}
 	for (auto elem : ts.Values) {
 		if ( elem != ts.Values[0])
-			std::cout <<  " * " ;
+			std::cout <<  "*" ;
 		if (elem.second != 0) {
 			std::cout << elem.first;
 		}

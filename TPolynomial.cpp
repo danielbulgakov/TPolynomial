@@ -2,7 +2,17 @@
 
 TMonomial& TPolynomial::GetElement(size_t index)
 {
-	TMonomial* tmp = Head;
+	TMonomial* tmp = this->Head;
+	if (index == 0) return *Head;
+	for (size_t i = 0; i < index; i++) {
+		tmp = tmp->GetNext();
+	}
+	return *tmp;
+}
+
+TMonomial& TPolynomial::GetElement(size_t index) const
+{
+	TMonomial* tmp = this->Head;
 	if (index == 0) return *Head;
 	for (size_t i = 0; i < index; i++) {
 		tmp = tmp->GetNext();
@@ -12,8 +22,12 @@ TMonomial& TPolynomial::GetElement(size_t index)
 
 TPolynomial::TPolynomial(const TPolynomial& tpl)
 {
-	this->Head = tpl.Head;
-	this->Size = tpl.Size;
+	this->Size = 0;
+	this->Head = nullptr;
+	for (size_t i = 0; i < tpl.Size; i++) {
+		this->Add(tpl.GetElement(i).GetMult(), tpl.GetElement(i).GetValues());
+
+	}
 }
 
 TPolynomial::TPolynomial()
@@ -67,6 +81,19 @@ TMonomial& TPolynomial::operator[](size_t index)
 {
 	return (const_cast<TMonomial&>(GetElement(index)));
 }
+
+TPolynomial& TPolynomial::operator=(const TPolynomial tmp)
+{
+	this->Size = 0;
+	this->Head = nullptr;
+	for (size_t i = 0; i < tmp.Size; i++) {
+		this->Add(tmp.GetElement(i).GetMult(), tmp.GetElement(i).GetValues());
+
+	}
+	return *this;
+}
+
+
 
 
 
@@ -135,9 +162,73 @@ TPolynomial TPolynomial::operator/(const std::string name) {
 	return tmp;
 }
 
+TPolynomial& TPolynomial::operator*=(const TPolynomial& polynom)
+{
+	TPolynomial tmp;
+	for (size_t i = 0; i < this->Size; i++) {
+		for (size_t j = 0; j < polynom.Size; j++) {
+			TMonomial m(this->GetElement(i) * polynom.GetElement(j));
+			tmp.Add(m.GetMult(), m.GetValues());
+		}
+	}
+	*this = tmp;
+	return (*this);
+}
+
+TPolynomial& TPolynomial::operator/=( const TPolynomial& polynom)
+{
+	TPolynomial tmp;
+	for (size_t i = 0; i < this->Size; i++) {
+		for (size_t j = 0; j < polynom.Size; j++) {
+			TMonomial m(this->GetElement(i) / polynom.GetElement(j));
+			tmp.Add(m.GetMult(), m.GetValues());
+		}
+	}
+	*this = tmp;
+	return (*this);
+}
+
+TPolynomial TPolynomial::operator*( const TPolynomial& polynom)
+{
+	TPolynomial tmp;
+	for (size_t i = 0; i < this->Size; i++) {
+		for (size_t j = 0; j < polynom.Size; j++) {
+			TMonomial m(this->GetElement(i) * polynom.GetElement(j));
+			tmp.Add(m.GetMult(), m.GetValues());
+		}
+	}
+
+	return tmp;
+}
+
+TPolynomial TPolynomial::operator/(const TPolynomial& polynom)
+{
+	TPolynomial tmp;
+	for (size_t i = 0; i < this->Size; i++) {
+		for (size_t j = 0; j < polynom.Size; j++) {
+			TMonomial m(this->GetElement(i) / polynom.GetElement(j));
+			tmp.Add(m.GetMult(), m.GetValues());
+		}
+	}
+
+	return tmp;
+}
+
 void TPolynomial::Add(double mult, std::vector<std::pair<std::string, int>> values)
 {
 	Push_back(mult, values);
+}
+
+void TPolynomial::Mult(double mult, std::vector<std::pair<std::string, int>> values)
+{
+	TMonomial tmp(mult, values);
+	(*this) *= tmp;
+}
+
+void TPolynomial::Div(double mult, std::vector<std::pair<std::string, int>> values)
+{
+	TMonomial tmp(mult, values);
+	(*this) /= tmp;
 }
 
 void TPolynomial::Push_front(double mult, std::vector<std::pair<std::string, int>> values)
@@ -172,6 +263,44 @@ void TPolynomial::Push_back(double  mult, std::vector<std::pair<std::string, int
 		tmp->SetNext(nMonom);
 	}
 	this->Size++;
+}
+
+TPolynomial TPolynomial::operator*(TMonomial& monom)
+{
+	TPolynomial tmp(*this);
+	for (size_t i = 0; i < tmp.Size; i++) {
+		tmp.GetElement(i) = tmp.GetElement(i) * monom;
+	}
+
+	return tmp;
+}
+
+TPolynomial& TPolynomial::operator*=(TMonomial& monom)
+{
+	for (size_t i = 0; i < this->Size; i++) {
+		this->GetElement(i) = this->GetElement(i) * monom;
+	}
+
+	return (*this);
+}
+
+TPolynomial TPolynomial::operator/(TMonomial& monom)
+{
+	TPolynomial tmp(*this);
+	for (size_t i = 0; i < tmp.Size; i++) {
+		tmp.GetElement(i) = tmp.GetElement(i) / monom;
+	}
+
+	return tmp;
+}
+
+TPolynomial& TPolynomial::operator/=(TMonomial& monom)
+{
+	for (size_t i = 0; i < this->Size; i++) {
+		this->GetElement(i) = this->GetElement(i) / monom;
+	}
+
+	return (*this);
 }
 
 void TPolynomial::Print()

@@ -8,21 +8,33 @@ int main() {
 
 	std::map<std::string, double> HashMap = { {"a", 1}, {"b" , 2}, {"c", 3},{"e", 3}, {"f", 3}};
 
-	std::vector<std::pair<std::string, int>> Values = { {"a",2} };
-	std::vector<std::pair<std::string, int>> Values1 = { {"c",2} , {"b", 3} };
-	std::vector<std::pair<std::string, int>> Values2 = { {"b",3} , {"c", 2} };
+	std::vector<std::pair<std::string, int>> Values = { {"a",1} };
+	std::vector<std::pair<std::string, int>> Values1 = { {"c",1} };
+	std::vector<std::pair<std::string, int>> Values3 = { {"b",1} };
 
 	int mult = -3;
 	
+	TPolynomial Polynom1;
 	TPolynomial Polynom;
+
+	Polynom1.Add(1, Values);
+	Polynom1.Add(1, Values1);
+	Polynom1.Add(1, Values3);
+
 	Polynom.Add(1, Values);
-	Polynom.Add(1, Values);
-	Polynom.Add(1, Values);
-	Polynom.Add(1, Values);
-	Polynom.Add(1, Values);
-	Polynom.Add(1, Values1);
-	Polynom.Add(1, Values1);
+	Polynom.Add(1, Values3);
+
+
+
+	Polynom = Polynom1 / Polynom1;
+
+	//Polynom.Add(1,Values);
+
+
 	
+
+	//Polynom.Div(1, Values1);
+	//Polynom *= "a^2";
 
 
 	//Polynom.Push_back(1, Values2);
