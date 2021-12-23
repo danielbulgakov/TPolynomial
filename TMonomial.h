@@ -17,8 +17,8 @@ private:
 
 public:
 	TMonomial(const TMonomial& tmnl);
-	
 	TMonomial(double mult, std::vector<std::pair<std::string, int>> values);
+	TMonomial(double mult);
 	void SetNext(TMonomial* next);
 	void SetMult(double value);
 	
@@ -46,7 +46,7 @@ public:
 	double Evaluate(const std::map<std::string, double>& KeyMap);
 	TMonomial Pow(uint32_t Power);
 	bool isEqual(TMonomial& monom);
-	void SortValues();
+
 	
 	void Print();
 	friend std::ostream& operator<<(std::ostream& out, const TMonomial& ts);

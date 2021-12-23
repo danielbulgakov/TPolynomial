@@ -18,42 +18,27 @@ int main() {
 	TPolynomial Polynom;
 
 	Polynom1.Add(1, Values);
-	Polynom1.Add(1, Values1);
 	Polynom1.Add(1, Values3);
+	Polynom1.Add(1, Values1);
 
 	Polynom.Add(1, Values);
 	Polynom.Add(1, Values3);
 
+	Polynom1.Pow(0);
+
+	Polynom1.Add(1, Values);
+	Polynom1.Add(1, Values3);
+	Polynom1.Add(1, Values1);
 
 
-	
+	Polynom1.Pow(2);
 
-	//Polynom.Add(1,Values);
-
-
-	
-
-	//Polynom.Div(1, Values1);
-	//Polynom *= "a^2";
+	Polynom1.Print();
 
 
-	//Polynom.Push_back(1, Values2);
-
-
-	//Polynom /= "a^2";
-	//Polynom *= "b^-3"; // Прочитать ситуацию, когда b^(-3)
-
-	//Polynom /= 3;
-	//Polynom *= -3;
-
-	//Polynom /= 5;
-	//Polynom = Polynom * 5;
-	//Polynom /= "g^2";
-
-	Polynom.Print();
 
 	std::cout << std::endl;
-	std::cout << "Result = " << Polynom.Evaluate(HashMap);
+	//std::cout << "Result = " << Polynom.Evaluate(HashMap);
 	std::cout << std::endl;
 
 	//Polynom.Print();
@@ -62,8 +47,8 @@ int main() {
 	// Посчитать значение полинома      (ready)
 	// Умножить / разделить на число    (ready)
 	// Умножать / делить на переменную  (ready)
-	// Учитывать сокращение при добавлении
-	// Возведение полинома в степень 
+	// Учитывать сокращение при добавлении (ready)
+	// Возведение полинома в степень  (ready)
 
 
 	return 0;

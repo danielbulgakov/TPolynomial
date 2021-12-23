@@ -56,7 +56,7 @@ public:
 
 	double Evaluate(const std::map<std::string, double> &KeyMap);
 	TPolynomial Pow(uint32_t power);
-	std::vector<uint32_t> PascalTriangle(size_t row);
+	
 
 	void Print();
 };

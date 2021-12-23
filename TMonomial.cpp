@@ -18,6 +18,11 @@ TMonomial::TMonomial(double mult, std::vector<std::pair<std::string, int>> value
 	
 }
 
+TMonomial::TMonomial(double mult)
+{
+	this->Mult = Mult;
+}
+
 TMonomial::TMonomial(const TMonomial& tmnl)
 {
 	this->Mult = tmnl.Mult;
@@ -181,10 +186,6 @@ bool TMonomial::isEqual(TMonomial& monom)
 
 }
 
-void TMonomial::SortValues()
-{
-	std::sort(Values.begin(), Values.end());
-}
 
 void TMonomial::SetNext(TMonomial* next)
 {
