@@ -102,6 +102,12 @@ TPolynomial& TPolynomial::operator=(const TPolynomial tmp)
 
 TPolynomial& TPolynomial::operator*=(const double a)
 {
+	if (a == 0) {
+		TPolynomial tmp(*this);
+		tmp.Size = 0;
+		tmp.Head = nullptr;
+		*this = tmp;
+	}
 	for (size_t i = 0; i < Size; i++) {
 		GetElement(i) *= a;
 	}
@@ -134,6 +140,10 @@ TPolynomial& TPolynomial::operator/=(const std::string name) {
 TPolynomial TPolynomial::operator*(const double a)
 {
 	TPolynomial tmp(*this);
+	if (a == 0) {
+		tmp.Size = 0;
+		tmp.Head = nullptr;
+	}
 	for (size_t i = 0; i < tmp.Size; i++) {
 		tmp.GetElement(i) *= a;
 	}
@@ -228,7 +238,7 @@ void TPolynomial::Push_back(double  mult, std::vector<std::pair<std::string, int
 
 	else {
 		TMonomial* tmp = Head;
-		if (this->Size == 1) {
+		if (this->Size == 1 || tmp == Head) {
 			if (tmp->isEqual(*nMonom)) {
 				tmp->SetMult(tmp->GetMult() + (*nMonom).GetMult());
 				return;
@@ -286,6 +296,8 @@ TPolynomial& TPolynomial::operator/=(TMonomial& monom)
 
 void TPolynomial::Print()
 {
+	if (this->Size == 0)  std::cout << "0";
+
 	for (size_t i = 0; i < Size; i++) {
 
 		std::cout <<
